@@ -644,6 +644,7 @@ class Connection:
                             sock = socket.create_connection(
                                 (self.host, self.port), self.connect_timeout, **kwargs
                             )
+                            sock = self.ctx.wrap_socket(sock, server_hostname=self.host)
                             break
                         except OSError as e:
                             if e.errno == errno.EINTR:
